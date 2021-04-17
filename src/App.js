@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import {set_users} from './store/action/index'
+import react,{useEffect} from 'react'
+function App(props) {
+  useEffect(()=>{
+    console.log("here is the added props",props.users)
+  })
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     <h2>This is Redux boiler plate</h2>
+     <button onClick={()=>props.set_users()}>Update</button>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+users:state.users
+})
+const mapDispatchToProp = (dispatch) => ({
+  set_users: () => dispatch(set_users())
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProp)(App);
